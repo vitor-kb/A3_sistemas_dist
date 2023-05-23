@@ -48,6 +48,7 @@ public class Client {
             reader.close();
             writer.close();
             socket.close();
+            scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

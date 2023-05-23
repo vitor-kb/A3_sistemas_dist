@@ -4,16 +4,17 @@ import java.net.*;
 public class Server {
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(12345);
-            System.out.println("Servidor iniciado. Aguardando conexões...");
+            try (ServerSocket serverSocket = new ServerSocket(12345)) {
+                System.out.println("Servidor iniciado. Aguardando conexões...");
 
-            while (true) {
-                Socket clientSocket = serverSocket.accept();
-                System.out.println("Novo cliente conectado: " + clientSocket);
+                while (true) {
+                    Socket clientSocket = serverSocket.accept();
+                    System.out.println("Novo cliente conectado: " + clientSocket);
 
-                // Inicie uma nova thread para lidar com o cliente
-                ClientHandler clientHandler = new ClientHandler(clientSocket);
-                clientHandler.start();
+                    // Inicie uma nova thread para lidar com o cliente
+                    ClientHandler clientHandler = new ClientHandler(clientSocket);
+                    clientHandler.start();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
