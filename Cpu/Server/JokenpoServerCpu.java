@@ -22,11 +22,9 @@ public class JokenpoServerCpu {
                 String playerChoice = in.readLine();
                 System.out.println("Escolha do jogador: " + playerChoice);
 
-                // Gera a escolha da CPU
                 String cpuChoice = generateCpuChoice();
                 System.out.println("Escolha da CPU: " + cpuChoice);
 
-                // Determina o vencedor
                 String roundResult = determineWinner(playerChoice, cpuChoice);
                 if (roundResult.equals("player")) {
                     playerWins++;
@@ -46,7 +44,6 @@ public class JokenpoServerCpu {
                 out.println("A CPU venceu o jogo!");
             }
 
-            // Fecha as conexões
             in.close();
             out.close();
             clientSocket.close();
