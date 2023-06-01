@@ -16,6 +16,7 @@ public class JokenpoClientCpu {
             while (playerWins < 3 && cpuWins < 3) {
                 System.out.println("Placar: Jogador " + playerWins + " - CPU " + cpuWins);
                 System.out.print("Escolha (Pedra, Papel ou Tesoura), escreva exatamente conforme orientado: ");
+                System.out.println("O jogo acaba em melhor de 3");
                 String playerChoice = scanner.nextLine();
 
                 // Envia a escolha para o servidor

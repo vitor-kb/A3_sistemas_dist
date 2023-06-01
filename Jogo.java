@@ -15,11 +15,13 @@ public class Jogo {
         String op1 = "1. Caminho da rua de baixo\n";
         String op2 = "2. Entrar no beco\n";
         String op3 = "3. BONUS: Jokenpo PVP\n";
+        String op4 = "4. Sair\n";
         TextoLento.exibeTextoLento(titutlo, 50);
         TextoLento.exibeTextoLento(ambiente, 50);
         TextoLento.exibeTextoLento(op1, 25);
         TextoLento.exibeTextoLento(op2, 25);
         TextoLento.exibeTextoLento(op3, 25);
+        TextoLento.exibeTextoLento(op4, 25);
         int caminho = scanner.nextInt();
 
         // Switch case simples para definir qual caminho o personagem ira seguir
@@ -35,8 +37,10 @@ public class Jogo {
                 coletarTesouro();
                 break;
             case 3:
-                System.out.println("Voce escolheu a modalidade bônus.");
+                System.out.println("Voce escolheu a modalidade bonus.");
                 jokenpo();
+                break;
+            case 4:
                 break;
             default:
                 System.out.println("Opcao invalida.");
@@ -68,17 +72,17 @@ public class Jogo {
 
     public static void inimigoEmAscii() {
         try {
-            //Path da imagem
+            // Path da imagem
             BufferedImage image = ImageIO.read(new File("./Imgs/ladrao_digital.jpg"));
 
-            //Redimensionamento da imagem para Ascii
+            // Redimensionamento da imagem para Ascii
             int newWidth = 40;
             int newHeight = (int) Math.floor((double) image.getHeight() * newWidth / image.getWidth());
             BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
             resizedImage.getGraphics()
                     .drawImage(image.getScaledInstance(newWidth, newHeight, BufferedImage.SCALE_SMOOTH), 0, 0, null);
 
-            //Converte cada pixel em um caractere ASCII e imprima
+            // Converte cada pixel em um caractere ASCII e imprima
             for (int y = 0; y < resizedImage.getHeight(); y++) {
                 for (int x = 0; x < resizedImage.getWidth(); x++) {
                     int pixel = resizedImage.getRGB(x, y);
@@ -119,6 +123,7 @@ public class Jogo {
         }
         return asciiChar;
     }
+
     public static void abrirClientCpu() {
         try {
             String os = System.getProperty("os.name").toLowerCase();
@@ -139,6 +144,7 @@ public class Jogo {
             e.printStackTrace();
         }
     }
+
     public static void abrirClientPvp() {
         try {
             String os = System.getProperty("os.name").toLowerCase();

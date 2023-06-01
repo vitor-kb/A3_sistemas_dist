@@ -18,7 +18,7 @@ public class JokenpoClientPvp {
                 BufferedReader consoleInput = new BufferedReader(new InputStreamReader(System.in));
     
                 while (true) {
-                    System.out.print("Digite sua jogada (Pedra, Papel ou Tesoura), você só precisa ganhar 1 vez: ");
+                    System.out.print("Digite sua jogada (Pedra, Papel ou Tesoura), voce so precisa ganhar 1 vez: ");
                     String move = consoleInput.readLine();
     
                     output.println(move);

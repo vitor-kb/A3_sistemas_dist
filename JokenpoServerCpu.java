@@ -29,7 +29,7 @@ public class JokenpoServerCpu {
 
                 String roundResult = determineWinner(playerChoice, cpuChoice);
                 if (roundResult.equals("player")) {
-                    out.println("Você venceu esta rodada!");
+                    out.println("Voce venceu esta rodada!");
                     playerWins++;
                 } else if (roundResult.equals("cpu")) {
                     out.println("A CPU venceu esta rodada!");
@@ -47,7 +47,7 @@ public class JokenpoServerCpu {
 
             // Envia o resultado final para o cliente
             if (playerWins == 3) {
-                out.println("Você venceu o jogo!");
+                out.println("Voce venceu o jogo!");
             } else {
                 out.println("A CPU venceu o jogo!");
             }
