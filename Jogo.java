@@ -67,7 +67,7 @@ public class Jogo {
         scanner.close();
     }
 
-    // Funcoes estaticas para as ações do jogador
+    // Funcoes estaticas para as ações do jogador e também para abrir os clients, além de converter imagens para ASCII
     public static void lutar() {
         System.out.println("=============================");
         System.out.println("Começa a batalha!");
