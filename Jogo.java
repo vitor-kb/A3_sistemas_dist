@@ -28,31 +28,37 @@ public class Jogo {
         switch (caminho) {
             case 1:
                 System.out.println("Voce escolheu o caminho da esquerda.");
+                System.out.println("=============================");
                 System.out.println("Voce encontrou um inimigo!");
+                System.out.println("=============================");
                 lutar();
                 break;
             case 2:
                 System.out.println("Voce escolheu o caminho da direita.");
+                System.out.println("=============================");
                 System.out.println("Voce encontrou um tesouro!");
+                System.out.println("=============================");
                 coletarTesouro();
                 break;
             case 3:
                 System.out.println("Voce escolheu a modalidade bonus.");
+                System.out.println("=============================");
                 jokenpo();
                 break;
             case 4:
                 break;
             default:
                 System.out.println("Opcao invalida.");
-                break;
         }
         scanner.close();
     }
 
     // Funcoes estaticas para as ações do jogador
     public static void lutar() {
+        System.out.println("=============================");
         System.out.println("Começa a batalha!");
         System.out.println("Voce precisa vencer 3 vezes para avançar!");
+        System.out.println("=============================");
         System.out.println("Inimigo:");
         inimigoEmAscii();
         abrirClientCpu();
@@ -60,11 +66,17 @@ public class Jogo {
     }
 
     public static void coletarTesouro() {
-        System.out.println("Você encontrou um tesouro incrível!");
+        System.out.println("=============================");
+        System.out.println("Voce encontrou um CHINELO!");
+        System.out.println("=============================");
+        System.out.println("Reiniciando..");
+        Jogo.main(null);
     }
 
     public static void jokenpo() {
+        System.out.println("=============================");
         System.out.println("Jogo PVP iniciado");
+        System.out.println("=============================");
         abrirClientPvp();
         abrirClientPvp();
         JokenpoServerPvp.main(null);

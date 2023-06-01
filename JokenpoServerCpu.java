@@ -60,6 +60,7 @@ public class JokenpoServerCpu {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            System.out.println("Reiniciando..");
             Jogo.main(null);
         }
     }

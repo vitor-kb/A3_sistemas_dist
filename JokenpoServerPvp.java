@@ -90,6 +90,7 @@ public class JokenpoServerPvp {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("Reiniciando..");
         Jogo.main(null);
     }
 
