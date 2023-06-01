@@ -1,4 +1,3 @@
-package Cpu.Server;
 import java.io.*;
 import java.net.*;
 
@@ -19,7 +18,10 @@ public class JokenpoServerCpu {
 
             while (playerWins < 3 && cpuWins < 3) {
                 // Recebe a escolha do jogador
-                String playerChoice = in.readLine();
+                String playerChoice = "";
+                while (playerChoice.equals("")) {
+                    playerChoice = in.readLine();
+                }
                 System.out.println("Escolha do jogador: " + playerChoice);
 
                 String cpuChoice = generateCpuChoice();
@@ -27,13 +29,19 @@ public class JokenpoServerCpu {
 
                 String roundResult = determineWinner(playerChoice, cpuChoice);
                 if (roundResult.equals("player")) {
-                    playerWins++;
                     out.println("Você venceu esta rodada!");
+                    playerWins++;
                 } else if (roundResult.equals("cpu")) {
-                    cpuWins++;
                     out.println("A CPU venceu esta rodada!");
+                    cpuWins++;
                 } else {
                     out.println("Empate! Tente novamente.");
+                }
+                if(playerWins == 2 && cpuWins == 1){
+                    break;
+                }
+                if(cpuWins == 2 && playerWins == 1){
+                    break;
                 }
             }
 
@@ -44,12 +52,15 @@ public class JokenpoServerCpu {
                 out.println("A CPU venceu o jogo!");
             }
 
-            in.close();
+            // Fechando as conexões
             out.close();
+            in.close();
             clientSocket.close();
             serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            Jogo.main(null);
         }
     }
 
@@ -66,7 +77,7 @@ public class JokenpoServerCpu {
             case 2:
                 return "Tesoura";
             default:
-                return "";
+                return "draw";
         }
     }
 

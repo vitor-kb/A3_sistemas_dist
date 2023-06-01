@@ -1,4 +1,3 @@
-package Cpu.Client;
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
@@ -15,6 +14,7 @@ public class JokenpoClientCpu {
             int cpuWins = 0;
 
             while (playerWins < 3 && cpuWins < 3) {
+                System.out.println("Placar: Jogador " + playerWins + " - CPU " + cpuWins);
                 System.out.print("Escolha (Pedra, Papel ou Tesoura), escreva exatamente conforme orientado: ");
                 String playerChoice = scanner.nextLine();
 
@@ -25,9 +25,9 @@ public class JokenpoClientCpu {
                 String serverResponse = in.readLine();
                 System.out.println(serverResponse);
 
-                if (serverResponse.contains("Você venceu")) {
+                if (serverResponse.contains("venceu esta rodada")) {
                     playerWins++;
-                } else if (serverResponse.contains("A CPU venceu")) {
+                } else if (serverResponse.contains("CPU venceu esta rodada")) {
                     cpuWins++;
                 }
             }

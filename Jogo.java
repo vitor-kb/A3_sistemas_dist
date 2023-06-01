@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-import Cpu.Server.JokenpoServerCpu;
-import Pvp.Server.JokenpoServerPvp;
 import TextoLento.TextoLento;
 
 public class Jogo {
@@ -13,10 +11,10 @@ public class Jogo {
         // Textos para o inicio do game
         Scanner scanner = new Scanner(System.in);
         String titutlo = "Bem-vindo ao RPG dos Crias!\n";
-        String ambiente = "Você está em um beco escuro no meio de SP, há dois caminhos para seguir. Escolha seu caminho:\n";
+        String ambiente = "Voce esta em um beco escuro no meio de SP, ha dois caminhos para seguir. Escolha seu caminho:\n";
         String op1 = "1. Caminho da rua de baixo\n";
         String op2 = "2. Entrar no beco\n";
-        String op3 = "3. BÔNUS: Jokenpo PVP\n";
+        String op3 = "3. BONUS: Jokenpo PVP\n";
         TextoLento.exibeTextoLento(titutlo, 50);
         TextoLento.exibeTextoLento(ambiente, 50);
         TextoLento.exibeTextoLento(op1, 25);
@@ -27,21 +25,21 @@ public class Jogo {
         // Switch case simples para definir qual caminho o personagem ira seguir
         switch (caminho) {
             case 1:
-                System.out.println("Você escolheu o caminho da esquerda.");
-                System.out.println("Você encontrou um inimigo!");
+                System.out.println("Voce escolheu o caminho da esquerda.");
+                System.out.println("Voce encontrou um inimigo!");
                 lutar();
                 break;
             case 2:
-                System.out.println("Você escolheu o caminho da direita.");
-                System.out.println("Você encontrou um tesouro!");
+                System.out.println("Voce escolheu o caminho da direita.");
+                System.out.println("Voce encontrou um tesouro!");
                 coletarTesouro();
                 break;
             case 3:
-                System.out.println("Você escolheu a modalidade bônus.");
+                System.out.println("Voce escolheu a modalidade bônus.");
                 jokenpo();
                 break;
             default:
-                System.out.println("Opção inválida.");
+                System.out.println("Opcao invalida.");
                 break;
         }
         scanner.close();
@@ -50,10 +48,10 @@ public class Jogo {
     // Funcoes estaticas para as ações do jogador
     public static void lutar() {
         System.out.println("Começa a batalha!");
-        System.out.println("Você precisa vencer 3 vezes para avançar!");
-        System.out.println("Por favor, inicie o cliente do Jogador");
+        System.out.println("Voce precisa vencer 3 vezes para avançar!");
         System.out.println("Inimigo:");
         inimigoEmAscii();
+        abrirClientCpu();
         JokenpoServerCpu.main(null);
     }
 
@@ -63,23 +61,24 @@ public class Jogo {
 
     public static void jokenpo() {
         System.out.println("Jogo PVP iniciado");
-        System.out.println("Por favor, inicie os clientes do Jogador 1 e 2");
+        abrirClientPvp();
+        abrirClientPvp();
         JokenpoServerPvp.main(null);
     }
 
     public static void inimigoEmAscii() {
         try {
-            // Carregue a imagem do arquivo
+            //Path da imagem
             BufferedImage image = ImageIO.read(new File("./Imgs/ladrao_digital.jpg"));
 
-            // Redimensione a imagem para um tamanho menor (opcional)
+            //Redimensionamento da imagem para Ascii
             int newWidth = 40;
             int newHeight = (int) Math.floor((double) image.getHeight() * newWidth / image.getWidth());
             BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
             resizedImage.getGraphics()
                     .drawImage(image.getScaledInstance(newWidth, newHeight, BufferedImage.SCALE_SMOOTH), 0, 0, null);
 
-            // Converta cada pixel em um caractere ASCII e imprima
+            //Converte cada pixel em um caractere ASCII e imprima
             for (int y = 0; y < resizedImage.getHeight(); y++) {
                 for (int x = 0; x < resizedImage.getWidth(); x++) {
                     int pixel = resizedImage.getRGB(x, y);
@@ -119,5 +118,46 @@ public class Jogo {
             asciiChar = '#';
         }
         return asciiChar;
+    }
+    public static void abrirClientCpu() {
+        try {
+            String os = System.getProperty("os.name").toLowerCase();
+
+            ProcessBuilder processBuilder;
+            if (os.contains("win")) {
+                // Se estiver executando no Windows
+                processBuilder = new ProcessBuilder("cmd.exe", "/c", "start", "cmd.exe", "/k", "java JokenpoClientCpu");
+                // Define o diretório onde o arquivo Java está localizado
+                File diretorio = new File("../A3_sistemas_dist");
+                processBuilder.directory(diretorio);
+            } else {
+                throw new IOException("Sistema operacional nao suportado.");
+            }
+
+            processBuilder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void abrirClientPvp() {
+        try {
+            String os = System.getProperty("os.name").toLowerCase();
+
+            ProcessBuilder processBuilder;
+            if (os.contains("win")) {
+                // Se estiver executando no Windows
+                processBuilder = new ProcessBuilder("cmd.exe", "/c", "start", "cmd.exe", "/k", "java JokenpoClientPvp");
+                // Define o diretório onde o arquivo Java está localizado
+                File diretorio = new File("../A3_sistemas_dist");
+                processBuilder.directory(diretorio);
+            } else {
+                // Se não puder detectar o sistema operacional
+                throw new IOException("Sistema operacional nao suportado.");
+            }
+
+            processBuilder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

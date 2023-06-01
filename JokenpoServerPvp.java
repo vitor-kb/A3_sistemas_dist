@@ -1,4 +1,3 @@
-package Pvp.Server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,7 +9,7 @@ public class JokenpoServerPvp {
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(1234);
-            System.out.println("Servidor iniciado. Aguardando conexões...");
+            System.out.println("Servidor iniciado. Aguardando conexoes...");
 
             Socket player1 = serverSocket.accept();
             System.out.println("Jogador 1 conectado.");
@@ -24,8 +23,8 @@ public class JokenpoServerPvp {
             BufferedReader player2Input = new BufferedReader(new InputStreamReader(player2.getInputStream()));
             PrintStream player2Output = new PrintStream(player2.getOutputStream(), true);
 
-            player1Output.println("Você é o Jogador 1.");
-            player2Output.println("Você é o Jogador 2.");
+            player1Output.println("Voce e o Jogador 1.");
+            player2Output.println("Voce e o Jogador 2.");
 
             while (true) {
                 String movePlayer1 = player1Input.readLine();
@@ -34,14 +33,25 @@ public class JokenpoServerPvp {
                 System.out.println("Jogada do Jogador 1: " + movePlayer1);
                 System.out.println("Jogada do Jogador 2: " + movePlayer2);
 
+                // Verificar se algum jogador deseja sair
+                if (movePlayer1.equals("sair") || movePlayer2.equals("sair")) {
+                    break;
+                }
+
+                if (!isValidMove(movePlayer1) || !isValidMove(movePlayer2)) {
+                    player1Output.println("Jogada invalida. Tente novamente.");
+                    player2Output.println("Jogada invalida. Tente novamente.");
+                    continue;
+                }
+
                 String result = vencedor(movePlayer1, movePlayer2);
 
                 player1Output.println(result);
                 player2Output.println(result);
 
                 if (result.equals("Empate")) {
-                    player1Output.println("Próxima rodada!");
-                    player2Output.println("Próxima rodada!");
+                    player1Output.println("Proxima rodada!");
+                    player2Output.println("Proxima rodada!");
                 } else {
                     player1Output.println("Fim do jogo. Digite 'sair' para sair.");
                     player2Output.println("Fim do jogo. Digite 'sair' para sair.");
@@ -53,20 +63,34 @@ public class JokenpoServerPvp {
                         break;
                     }
 
-                    player1Output.println("Próxima rodada!");
-                    player2Output.println("Próxima rodada!");
+                    player1Output.println("Proxima rodada!");
+                    player2Output.println("Proxima rodada!");
                 }
             }
 
             player1Output.println("Desconectando...");
             player2Output.println("Desconectando...");
 
-            player1.close();
-            player2.close();
-            serverSocket.close();
+            // Fechar as conexões individualmente em blocos try-catch separados
+            try {
+                player1.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                player2.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                serverSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Jogo.main(null);
     }
 
     private static String vencedor(String movePlayer1, String movePlayer2) {
@@ -82,4 +106,9 @@ public class JokenpoServerPvp {
             return "Jogador 2 venceu!";
         }
     }
+
+    private static boolean isValidMove(String move) {
+        return move.equals("Pedra") || move.equals("Papel") || move.equals("Tesoura");
+    }
 }
+
