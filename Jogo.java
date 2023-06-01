@@ -42,7 +42,6 @@ public class Jogo {
                 break;
             case 3:
                 System.out.println("Voce escolheu a modalidade bonus.");
-                System.out.println("=============================");
                 jokenpo();
                 break;
             case 4:

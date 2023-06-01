@@ -1,10 +1,14 @@
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 public class JokenpoServerCpu {
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(12345);
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Digite a porta:");
+            int porta = scanner.nextInt();
+            ServerSocket serverSocket = new ServerSocket(porta/*12345*/);
             System.out.println("Servidor iniciado. Aguardando conexão...");
 
             Socket clientSocket = serverSocket.accept();
@@ -37,10 +41,10 @@ public class JokenpoServerCpu {
                 } else {
                     out.println("Empate! Tente novamente.");
                 }
-                if(playerWins == 2 && cpuWins == 1){
+                if (playerWins == 2 && cpuWins == 1) {
                     break;
                 }
-                if(cpuWins == 2 && playerWins == 1){
+                if (cpuWins == 2 && playerWins == 1) {
                     break;
                 }
             }
@@ -57,6 +61,7 @@ public class JokenpoServerCpu {
             in.close();
             clientSocket.close();
             serverSocket.close();
+            scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

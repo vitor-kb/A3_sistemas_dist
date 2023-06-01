@@ -5,11 +5,16 @@ import java.util.Scanner;
 public class JokenpoClientCpu {
     public static void main(String[] args) {
         try {
-            Socket socket = new Socket("localhost", 12345);
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Digite o ip(host):");
+            String host = scanner.next();
+            System.out.println("Digite a mesma porta utilizada no servidor:");
+            int porta = scanner.nextInt();
+            Socket socket = new Socket(host, porta/*localhost, 12345*/);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-            Scanner scanner = new Scanner(System.in);
+            
             int playerWins = 0;
             int cpuWins = 0;
 

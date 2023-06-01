@@ -4,11 +4,15 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class JokenpoServerPvp {
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(1234);
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Digite a porta:");
+            int porta = scanner.nextInt();
+            ServerSocket serverSocket = new ServerSocket(porta/*1234*/);
             System.out.println("Servidor iniciado. Aguardando conexoes...");
 
             Socket player1 = serverSocket.accept();
@@ -87,6 +91,7 @@ public class JokenpoServerPvp {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,11 +102,9 @@ public class JokenpoServerPvp {
     private static String vencedor(String movePlayer1, String movePlayer2) {
         if (movePlayer1.equals(movePlayer2)) {
             return "Empate";
-        } else if (
-                (movePlayer1.equals("Pedra") && movePlayer2.equals("Tesoura")) ||
+        } else if ((movePlayer1.equals("Pedra") && movePlayer2.equals("Tesoura")) ||
                 (movePlayer1.equals("Tesoura") && movePlayer2.equals("Papel")) ||
-                (movePlayer1.equals("Papel") && movePlayer2.equals("Pedra"))
-        ) {
+                (movePlayer1.equals("Papel") && movePlayer2.equals("Pedra"))) {
             return "Jogador 1 venceu!";
         } else {
             return "Jogador 2 venceu!";
@@ -112,4 +115,3 @@ public class JokenpoServerPvp {
         return move.equals("Pedra") || move.equals("Papel") || move.equals("Tesoura");
     }
 }
-
