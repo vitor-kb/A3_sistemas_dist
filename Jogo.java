@@ -10,13 +10,13 @@ public class Jogo {
     public static void main(String[] args) {
         // Textos para o inicio do game
         Scanner scanner = new Scanner(System.in);
-        String titulo = "Bem-vindo ao RPG dos Crias!\n";
+        String titutlo = "Bem-vindo ao RPG dos Crias!\n";
         String ambiente = "Voce esta em um beco escuro no meio de SP, ha dois caminhos para seguir. Escolha seu caminho:\n";
         String op1 = "1. Caminho da rua de baixo\n";
         String op2 = "2. Entrar no beco\n";
         String op3 = "3. BONUS: Jokenpo PVP\n";
         String op4 = "4. Sair\n";
-        TextoLento.exibeTextoLento(titulo, 50);
+        TextoLento.exibeTextoLento(titutlo, 50);
         TextoLento.exibeTextoLento(ambiente, 50);
         TextoLento.exibeTextoLento(op1, 25);
         TextoLento.exibeTextoLento(op2, 25);
@@ -25,7 +25,6 @@ public class Jogo {
         int caminho = scanner.nextInt();
 
         // Switch case simples para definir qual caminho o personagem ira seguir
-
         switch (caminho) {
             case 1:
                 System.out.println("Voce escolheu o caminho da esquerda.");
@@ -33,7 +32,6 @@ public class Jogo {
                 System.out.println("Voce encontrou um inimigo!");
                 System.out.println("=============================");
                 lutar();
-
                 break;
             case 2:
                 System.out.println("Voce escolheu o caminho da direita.");
@@ -41,12 +39,11 @@ public class Jogo {
                 System.out.println("Voce encontrou um tesouro!");
                 System.out.println("=============================");
                 coletarTesouro();
-
                 break;
             case 3:
                 System.out.println("Voce escolheu a modalidade bonus.");
+                System.out.println("=============================");
                 jokenpo();
-
                 break;
             case 4:
                 TextoLento.exibeTextoLento("Criadores:\n", 25);
@@ -56,18 +53,14 @@ public class Jogo {
                 TextoLento.exibeTextoLento("Raul Martins de Souza\n", 25);
                 TextoLento.exibeTextoLento("Davi Ferreira Afonso\n", 25);
                 TextoLento.exibeTextoLento("Obrigado por jogar!\n", 25);
-
                 break;
             default:
                 System.out.println("Opcao invalida.");
-                System.out.println("Reiniciando..");
-                Jogo.main(null);
-                break;
         }
         scanner.close();
     }
 
-    // Funcoes estaticas para as ações do jogador e também para abrir os clients, além de converter imagens para ASCII
+    // Funcoes estaticas para as ações do jogador
     public static void lutar() {
         System.out.println("=============================");
         System.out.println("Começa a batalha!");
@@ -156,7 +149,9 @@ public class Jogo {
 
             ProcessBuilder processBuilder;
             if (os.contains("win")) {
+                // Se estiver executando no Windows
                 processBuilder = new ProcessBuilder("cmd.exe", "/c", "start", "cmd.exe", "/k", "java JokenpoClientCpu");
+                // Define o diretório onde o arquivo Java está localizado
                 File diretorio = new File("../A3_sistemas_dist");
                 processBuilder.directory(diretorio);
             } else {
@@ -175,10 +170,13 @@ public class Jogo {
 
             ProcessBuilder processBuilder;
             if (os.contains("win")) {
+                // Se estiver executando no Windows
                 processBuilder = new ProcessBuilder("cmd.exe", "/c", "start", "cmd.exe", "/k", "java JokenpoClientPvp");
+                // Define o diretório onde o arquivo Java está localizado
                 File diretorio = new File("../A3_sistemas_dist");
                 processBuilder.directory(diretorio);
             } else {
+                // Se não puder detectar o sistema operacional
                 throw new IOException("Sistema operacional nao suportado.");
             }
 
